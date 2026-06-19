@@ -125,6 +125,13 @@ class CBT_Theme_Locale {
 				return array( '/(alt=")(.*?)(")/' );
 			case 'core/details':
 				return array( '/(<summary[^>]*>)(.*?)(<\/summary>)/' );
+			case 'core/file':
+				return array(
+					// File-name link: <a> without the boolean `download` attribute.
+					'/(<a(?:(?!\sdownload[\s>])[^>])*?>)(.*?)(<\/a>)/',
+					// Download button: <a ... download ...>.
+					'/(<a[^>]*\sdownload[^>]*?>)(.*?)(<\/a>)/',
+				);
 			default:
 				return null;
 		}
@@ -146,6 +153,11 @@ class CBT_Theme_Locale {
 			case 'core/comments-pagination-previous':
 			case 'core/comments-pagination-next':
 			case 'core/post-navigation-link':
+			case 'core/navigation-link':
+			case 'core/navigation-submenu':
+			case 'core/home-link':
+			case 'core/social-link':
+			case 'core/categories':
 				return array( 'label' );
 			case 'core/post-excerpt':
 				return array( 'moreText' );
@@ -197,6 +209,7 @@ class CBT_Theme_Locale {
 				case 'core/cover':
 				case 'core/media-text':
 				case 'core/details':
+				case 'core/file':
 					$replace_content_callback = function ( $content, $pattern ) {
 						if ( empty( $content ) ) {
 							return;
